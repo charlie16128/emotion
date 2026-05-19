@@ -19,19 +19,28 @@
         #camera-box { position: absolute; top: 30px; left: 30px; width: 320px; z-index: 20; border: 4px solid rgba(255,255,255,0.8); border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); transition: opacity 0.4s; pointer-events: none; }
         #drawing-canvas { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 40; cursor: crosshair; display: none; background: rgba(0,0,0,0.2); }
         #finish-draw-btn { position: absolute; bottom: 40px; right: 40px; z-index: 50; display: none; }
-        #voice-indicator { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); z-index: 30; display: none; font-size: 4rem; color: #fff; text-shadow: 0 0 30px #ffeb3b; animation: pulse 1.5s infinite; pointer-events: none; }
+        #voice-indicator { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); z-index: 30; display: none; font-size: 4rem; color: #fff; text-shadow: 0 0 30px #ffeb3b; animation: pulse 1.5s infinite; pointer-events: none; font-weight: 900; }
         @keyframes pulse { 0% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.1); } 100% { transform: translate(-50%, -50%) scale(1); } }
         
         #ui-panel { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 30; width: 90%; max-width: 800px; text-align: center; }
-        .card-custom { background: rgba(255, 255, 255, 0.95); border-radius: 35px; padding: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.3); pointer-events: auto; cursor: pointer; }
+        .card-custom { 
+            background: rgba(255, 255, 255, 0.6); /* 💡 把 0.95 降到 0.6，變得更透明 */
+            backdrop-filter: blur(8px); /* 💡 加上一點毛玻璃模糊效果，讓後面的動畫透光但不會干擾文字閱讀 */
+            border-radius: 35px; 
+            padding: 25px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4); 
+            border: 1px solid rgba(255,255,255,0.5); 
+            pointer-events: auto; 
+            cursor: pointer; 
+        }
 
-        /* ================= 🚀 旗艦級：封面頁 ================= */
+        /* ================= 封面頁 ================= */
         #cover-page { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #000; transition: opacity 1s ease-in-out; }
         #cover-bg-video { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 1; }
         .overlay-dark { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%); z-index: 2; }
         .cover-content { position: relative; z-index: 3; text-align: center; }
 
-        /* ================= 🎆 旗艦級：最終大結局頁面 ================= */
+        /* ================= 最終大結局頁面 ================= */
         #end-page { 
             position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; 
             z-index: 20000; display: none; flex-direction: column; justify-content: center; 
@@ -44,46 +53,18 @@
         }
         .end-content { position: relative; z-index: 3; text-align: center; width: 80%; }
         
-        /* 質感金屬光澤字體 */
         .end-title { 
-            font-family: 'Poppins', 'Noto Sans TC', sans-serif;
-            font-weight: 900; font-size: 6rem; 
-            color: #ffffff; 
-            text-shadow: 0 0 20px rgba(255,255,255,0.5), 0 10px 40px rgba(0,0,0,0.8);
-            letter-spacing: 5px;
-            margin-bottom: 10px;
+            font-family: 'Poppins', 'Noto Sans TC', sans-serif; font-weight: 900; font-size: 6rem; 
+            color: #ffffff; text-shadow: 0 0 20px rgba(255,255,255,0.5), 0 10px 40px rgba(0,0,0,0.8); letter-spacing: 5px; margin-bottom: 10px;
         }
-        .end-subtitle { 
-            font-size: 2.2rem; color: #f8f9fa; font-weight: 700;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.8);
-            margin-bottom: 50px;
-        }
-
-        /* 呼吸光感按鈕 */
+        .end-subtitle { font-size: 2.2rem; color: #f8f9fa; font-weight: 700; text-shadow: 0 4px 10px rgba(0,0,0,0.8); margin-bottom: 50px; }
+        
         .btn-magical {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 2px solid #fff;
-            color: #fff;
-            padding: 20px 60px;
-            font-size: 2rem;
-            border-radius: 100px;
-            font-weight: 900;
-            transition: all 0.4s;
-            box-shadow: 0 0 20px rgba(255,255,255,0.3);
-            animation: breathe 3s infinite;
+            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border: 2px solid #fff; color: #fff; padding: 20px 60px;
+            font-size: 2rem; border-radius: 100px; font-weight: 900; transition: all 0.4s; box-shadow: 0 0 20px rgba(255,255,255,0.3); animation: breathe 3s infinite;
         }
-        .btn-magical:hover {
-            background: #fff;
-            color: #000;
-            transform: scale(1.1);
-            box-shadow: 0 0 50px rgba(255,255,255,0.8);
-        }
-        @keyframes breathe {
-            0% { box-shadow: 0 0 20px rgba(255,255,255,0.2); }
-            50% { box-shadow: 0 0 40px rgba(255,255,255,0.6); }
-            100% { box-shadow: 0 0 20px rgba(255,255,255,0.2); }
-        }
+        .btn-magical:hover { background: #fff; color: #000; transform: scale(1.1); box-shadow: 0 0 50px rgba(255,255,255,0.8); }
+        @keyframes breathe { 0% { box-shadow: 0 0 20px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 40px rgba(255,255,255,0.6); } 100% { box-shadow: 0 0 20px rgba(255,255,255,0.2); } }
     </style>
 </head>
 <body ondragstart="return false;" ondrop="return false;">
@@ -102,7 +83,7 @@
 
         <div id="end-page">
             <video id="end-bg-video" loop muted playsinline>
-                <source src="/static/videos/end_fireworks.mp4" type="video/mp4">
+                <source src="/static/videos/scene15_sing.mp4" type="video/mp4">
             </video>
             <div id="end-overlay"></div>
             <div class="end-content">
@@ -115,7 +96,9 @@
         </div>
 
         <audio id="bgm" src="/static/audio/bgm.mp3" loop></audio>
-        <video id="bg-video" muted playsinline></video>
+        
+        <video id="bg-video" loop muted playsinline></video>
+        
         <img id="camera-box" src="{{ url_for('video_feed') }}">
         <canvas id="drawing-canvas"></canvas>
         <button type="button" id="finish-draw-btn" class="btn btn-success btn-lg rounded-pill px-5 py-3 fs-3 fw-bold">✨ 我畫好了！</button>
@@ -193,7 +176,7 @@
                 recognition.onresult = function(event) {
                     const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
                     if (currentTask === "voice_shout") {
-                        if (transcript.includes("開門") || transcript.includes("測試") || transcript.includes("帕") || transcript.includes("唱") || transcript.includes("一二三") || transcript.includes("嗨")) {
+                        if (transcript.includes("開門") || transcript.includes("測試") || transcript.includes("帕") || transcript.includes("唱") || transcript.includes("一二三") || transcript.includes("嗨") || transcript.includes("test")) {
                             fetch('/complete_voice', { method: 'POST' }).then(() => fetchStory());
                         }
                     }
@@ -242,9 +225,14 @@
 
                     if (data.task !== currentTask) {
                         currentTask = data.task;
+                        
                         if (currentTask.startsWith("draw")) {
                             canvas.style.display = "block"; btn.style.display = "block"; camera.style.display = "none";
                             uiPanel.style.bottom = "auto"; uiPanel.style.top = "30px";
+                            
+                            // 💡 修正 1：進入畫畫模式時，強制隱藏語音提示字樣，避免殘留
+                            voiceIndicator.style.display = "none"; 
+                            
                         } else if (currentTask === "voice_shout") {
                             voiceIndicator.style.display = "block";
                             if (recognition) { try { recognition.start(); } catch(e) {} }

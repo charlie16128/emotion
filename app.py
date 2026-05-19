@@ -31,10 +31,12 @@ current_state = "start"
 last_trigger_time = 0
 
 def advance_story():
-    global current_state
+    global current_state, last_trigger_time
     next_state = SCENES[current_state]["next"]
     if next_state != "none":
         current_state = next_state
+        # 💡 修正 2：進入新章節時，強制把時間重置，給予 4 秒的「閱讀保護期」，避免 AI 秒殺過關
+        last_trigger_time = time.time() 
         print(f"移動到最新狀態: {current_state}")
 
 def generate_frames():
@@ -56,16 +58,16 @@ def generate_frames():
                 emotion_scores = results[0]['emotion']
                 if current_task == "emotion_happy" and emotion_scores['happy'] > 60:
                     oval_color = (0, 200, 100)
-                    if time.time() - last_trigger_time > 3:
-                        advance_story(); last_trigger_time = time.time()
+                    if time.time() - last_trigger_time > 4:  # 等待 4 秒保護期結束後才放行
+                        advance_story()
                 elif current_task == "emotion_sad" and emotion_scores['sad'] > 60:
                     oval_color = (255, 100, 100)
-                    if time.time() - last_trigger_time > 3:
-                        advance_story(); last_trigger_time = time.time()
+                    if time.time() - last_trigger_time > 4:
+                        advance_story()
                 elif current_task == "emotion_surprise" and emotion_scores['surprise'] > 60:
                     oval_color = (200, 100, 255) 
-                    if time.time() - last_trigger_time > 3:
-                        advance_story(); last_trigger_time = time.time()
+                    if time.time() - last_trigger_time > 4:
+                        advance_story()
             except: pass
 
         elif current_task == "motion_wave":
@@ -77,8 +79,8 @@ def generate_frames():
                 motion_level = cv2.countNonZero(thresh)
                 if motion_level > 15000: 
                     oval_color = (0, 255, 255) 
-                    if time.time() - last_trigger_time > 3:
-                        advance_story(); last_trigger_time = time.time()
+                    if time.time() - last_trigger_time > 4:
+                        advance_story()
             prev_gray = gray
 
         cv2.ellipse(frame, (center_x, center_y), (120, 160), 0, 0, 360, oval_color, 2)
